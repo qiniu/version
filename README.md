@@ -1,5 +1,4 @@
 # version
-# version
 package version defines the utility information for versioning binary
 
 ## Usage
