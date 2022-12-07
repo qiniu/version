@@ -5,3 +5,7 @@
 
 # example binary
 examples/examples
+
+# IDE
+.idea
+**/.DS_Store
