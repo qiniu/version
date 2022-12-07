@@ -15,4 +15,15 @@ Build it with:
 go build -ldflags "-X 'github.com/qiniu/version.BuildDate=$(date)'" .
 ```
 
-Then run, it will output like:
+Then run your app with parameters `version` or `--version`, you will get output like:
+
+```shell
+✗ ./examples version
+Go version:	    go1.19.3
+Git commit:	    56dac6d5e895d5d6474b840d99fb3c7cfbdf26e3
+Commit date:	2022-12-06T12:22:24Z
+Git state:	    dirty
+Built date:	    Wed Dec  7 14:11:24 CST 2022
+OS/Arch:	    darwin/amd64
+Compiler:	    gc
+```
