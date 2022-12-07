@@ -1,5 +1,5 @@
 # version
-package version defines the utility information for versioning binary
+fast way to add version information for your application
 
 ## Usage
 
