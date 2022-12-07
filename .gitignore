@@ -4,4 +4,4 @@
 *.so
 
 # example binary
-examples
+examples/examples
