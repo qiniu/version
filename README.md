@@ -34,5 +34,5 @@ Also, there are some other useful options for your reference. For example:
 LDFLAGS="${LDFLAGS} \
 	-X \"github.com/qiniu/version.GitTag=$(git describe --tags)\" \
 	-X \"github.com/qiniu/version.BuildComments=${BUILDCOMMENTS}\" \
-	-X \"github.com/qiniu/version.NAME=${NAME}\" \
+	-X \"github.com/qiniu/version.Name=${NAME}\" \
 ```
