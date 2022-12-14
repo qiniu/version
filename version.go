@@ -27,8 +27,7 @@ var (
 	GitTreeState = unknownProperty
 	// GitTag shows latest tag if injected by go -ldflags, otherwise it is invisible.
 	GitTag = unknownProperty
-	// BuildDate shows the built time for the associated binary.
-	// Expect to be filled via go -ldflags during compiling.
+	// BuildDate shows the built time for the associated binary if injected by go -ldflags. otherwise it is invisible.
 	BuildDate = unknownProperty
 	// Platform composes with GOARCH and GOOS automatically.
 	Platform = unknownProperty
@@ -72,7 +71,10 @@ func Version() {
 		xprintf(format, "Git state", GitTreeState)
 	}
 
-	xprintf(format, "Built date", BuildDate)
+	if BuildDate != unknownProperty {
+		xprintf(format, "Built date", BuildDate)
+	}
+
 	if BuildComments != unknownProperty {
 		xprintf(format, "Built comments", BuildComments)
 	}
