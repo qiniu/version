@@ -107,7 +107,7 @@ func collectFromBuildInfo() {
 			}
 
 		case "vcs.modified":
-			if GitTreeState == unknownProperty && kv.Value != "" {
+			if GitTreeState == unknownProperty && kv.Value == "true" {
 				GitTreeState = "dirty"
 			}
 		}
