@@ -41,7 +41,7 @@ var (
 
 func init() {
 	// usages: <command> version (or --version / -version)
-	if len(os.Args) > 1 && (os.Args[1] == "version" || os.Args[1] == "--version" || os.Args[1] == "-version") {
+	if len(os.Args) > 1 && (os.Args[1] == "version" || os.Args[1] == "--version" || os.Args[1] == "-version" || os.Args[1] == "-v") {
 		Version()
 		os.Exit(0)
 	}
