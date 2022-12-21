@@ -1,4 +1,5 @@
-# version
+# qiniu/version
+
 fast way to add version information for your application
 
 ## Usage
@@ -6,13 +7,13 @@ fast way to add version information for your application
 Import this package in your application:
 
 ```go
-import _ "github.com/qiniu/version"
+import _ "github.com/qiniu/version/v2/easyHook"
 ```
 
 Build it with:
 
 ```shell
-go build -ldflags "-X 'github.com/qiniu/version.BuildDate=$(date)'" .
+go build -ldflags "-X 'github.com/qiniu/version/v2.BuildDate=$(date)'" .
 ```
 
 Then run your app with parameters `version` or `--version`, you will get output like:
@@ -32,7 +33,7 @@ Also, there are some other useful options for your reference. For example:
 
 ```shell
 LDFLAGS="${LDFLAGS} \
-	-X \"github.com/qiniu/version.GitTag=$(git describe --tags)\" \
-	-X \"github.com/qiniu/version.BuildComments=${BUILDCOMMENTS}\" \
-	-X \"github.com/qiniu/version.Name=${NAME}\" \
+	-X \"github.com/qiniu/version/v2.GitTag=$(git describe --tags)\" \
+	-X \"github.com/qiniu/version/v2.BuildComments=${BUILDCOMMENTS}\" \
+	-X \"github.com/qiniu/version/v2.Name=${NAME}\" \
 ```

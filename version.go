@@ -2,7 +2,6 @@ package version
 
 import (
 	"fmt"
-	"os"
 	"runtime"
 	"runtime/debug"
 	"sync"
@@ -38,16 +37,6 @@ var (
 	// Name shows the name of your binary if provided, otherwise it is invisible.
 	Name = unknownProperty
 )
-
-func init() {
-	// usages: <command> version (or --version / -version)
-	if len(os.Args) > 1 && (os.Args[1] == "version" || os.Args[1] == "--version" || os.Args[1] == "-version") {
-		Version()
-		os.Exit(0)
-	}
-
-	// TODO: expose version information via exporter as needed
-}
 
 var once sync.Once
 
