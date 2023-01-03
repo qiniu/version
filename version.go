@@ -10,30 +10,47 @@ const (
 	unknownProperty = "N/A"
 )
 
-// Information of versioning
+// Version information
 var (
-	// GoVersion is the version of the Go toolchain that built the binary(for example, "go1.19.2").
-	// and will be filled via runtime.Version() automatically if not specified.
+	// GoVersion is the version of the Go toolchain used to build the binary
+	// (e.g. "go1.19.2").
+	// It defaults to value of runtime.Version() if not explicitly overridden.
 	GoVersion = unknownProperty
-	// GitCommit shows the revision identifier for the current commit or checkout.
-	// and will be filled via debug.BuildInfo.Settings automatically if not specified.
+	// GitCommit is the commit hash of the Git repository's HEAD at
+	// build-time.
+	// It defaults to the value as collected by the runtime/debug package if
+	// not explicitly overridden.
 	GitCommit = unknownProperty
-	// GitCommitDate shows the time associated with GitCommit, in RFC3339 format
-	// and will be filled via debug.BuildInfo.Settings automatically if not specified.
+	// GitCommitDate is GitCommit's commit date in RFC3339 format.
+	// It defaults to the value as collected by the runtime/debug package if
+	// not explicitly overridden.
 	GitCommitDate = unknownProperty
-	// GitTreeState shows "dirty" indicating the source tree had local modifications, otherwise it is invisible.
+	// GitTreeState becomes "dirty" if the source tree had local modifications
+	// at build-time.
+	// It stays "N/A" otherwise and will not be shown in Print if this is the
+	// case.
 	GitTreeState = unknownProperty
-	// GitTag shows latest tag if injected by go -ldflags, otherwise it is invisible.
+	// GitTag is meant to be injected with the tag name associated with
+	// GitCommit, by means of `go -ldflags` at build-time.
+	// It stays "N/A" otherwise and will not be shown in Print if this is the
+	// case.
 	GitTag = unknownProperty
-	// BuildDate shows the built time for the associated binary if injected by go -ldflags. otherwise it is invisible.
+	// BuildDate is meant to be injected with a string denoting the build time
+	// of the binary, by means of `go -ldflags` at build-time.
+	// It stays "N/A" otherwise and will not be shown in Print if this is the
+	// case.
 	BuildDate = unknownProperty
-	// Platform composes with GOARCH and GOOS automatically.
+	// Platform is a string in the form of "GOOS/GOARCH", e.g. "linux/amd64".
 	Platform = unknownProperty
-	// Compiler shows the toolchain flag used (typically "gc")
+	// Compiler is a convenient alias for runtime.Compiler.
 	Compiler = unknownProperty
-	// BuildComments provides extra information if needed.
+	// BuildComments can be used to associate arbitrary extra information with
+	// the binary, by means of injection via `go -ldflags` at build-time.
 	BuildComments = unknownProperty
-	// Name shows the name of your binary if provided, otherwise it is invisible.
+	// Name is meant to be injected with the binary's intended name, by means
+	// of `go -ldflags` at build-time.
+	// It stays "N/A" otherwise and will not be shown in Print if this is the
+	// case.
 	Name = unknownProperty
 )
 
