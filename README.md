@@ -5,6 +5,10 @@ A fast way to add assorted version information for your application.
 Note this is tailored primarily to Qiniu's internal needs, and may or may not
 suit your specific case.
 
+## License
+
+`qiniu/version` is licensed under [the Apache 2.0 license](./LICENSE).
+
 ## Quick start
 
 If you're in a hurry, just import the easy hook package:
