@@ -10,6 +10,9 @@ const (
 	unknownProperty = "N/A"
 )
 
+// Compiler is a convenient alias for runtime.Compiler.
+const Compiler = runtime.Compiler
+
 // Version information
 var (
 	// GoVersion is the version of the Go toolchain used to build the binary
@@ -42,8 +45,6 @@ var (
 	BuildDate = unknownProperty
 	// Platform is a string in the form of "GOOS/GOARCH", e.g. "linux/amd64".
 	Platform = unknownProperty
-	// Compiler is a convenient alias for runtime.Compiler.
-	Compiler = unknownProperty
 	// BuildComments can be used to associate arbitrary extra information with
 	// the binary, by means of injection via `go -ldflags` at build-time.
 	BuildComments = unknownProperty
@@ -130,9 +131,5 @@ func collectFromRuntime() {
 
 	if Platform == unknownProperty {
 		Platform = fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
-	}
-
-	if Compiler == unknownProperty {
-		Compiler = runtime.Compiler
 	}
 }
