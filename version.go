@@ -45,32 +45,35 @@ func init() {
 
 // Version prints the information of versioning
 func Version() {
-	format := "%s:\t%s\n"
-	if Name != unknownProperty {
-		xprintf(format, "Name", Name)
+	xprintf := func(k string, v string) {
+		fmt.Printf("%s:\t%s\n", k, v)
 	}
 
-	xprintf(format, "Go version", GoVersion)
-	xprintf(format, "Git commit", GitCommit)
-	xprintf(format, "Commit date", GitCommitDate)
+	if Name != unknownProperty {
+		xprintf("Name", Name)
+	}
+
+	xprintf("Go version", GoVersion)
+	xprintf("Git commit", GitCommit)
+	xprintf("Commit date", GitCommitDate)
 
 	if GitTreeState != unknownProperty {
-		xprintf(format, "Git state", GitTreeState)
+		xprintf("Git state", GitTreeState)
 	}
 
 	if BuildDate != unknownProperty {
-		xprintf(format, "Built date", BuildDate)
+		xprintf("Built date", BuildDate)
 	}
 
 	if BuildComments != unknownProperty {
-		xprintf(format, "Built comments", BuildComments)
+		xprintf("Built comments", BuildComments)
 	}
 
-	xprintf(format, "OS/Arch", Platform)
-	xprintf(format, "Compiler", Compiler)
+	xprintf("OS/Arch", Platform)
+	xprintf("Compiler", Compiler)
 
 	if GitTag != unknownProperty {
-		xprintf(format, "Git tag", GitTag)
+		xprintf("Git tag", GitTag)
 	}
 }
 
@@ -115,9 +118,4 @@ func collectFromRuntime() {
 	if Compiler == unknownProperty {
 		Compiler = runtime.Compiler
 	}
-}
-
-// xprintf prints a message to standard output.
-func xprintf(format string, args ...interface{}) {
-	fmt.Printf(format, args...)
 }
