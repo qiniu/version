@@ -14,6 +14,6 @@
 //		// make use of one of the prepopulated values
 //		_ = version.GitCommit
 //		// or output in the package-standard format in your CLI handler
-//		version.Version()
+//		version.Print()
 //	}
 package version

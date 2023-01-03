@@ -43,8 +43,8 @@ func init() {
 	collectFromRuntime()
 }
 
-// Version prints the information of versioning
-func Version() {
+// Print prints out the collected version information.
+func Print() {
 	xprintf := func(k string, v string) {
 		fmt.Printf("%s:\t%s\n", k, v)
 	}
