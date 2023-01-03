@@ -5,4 +5,4 @@ NAME=libversion
 LDFLAGS="-X 'github.com/qiniu/version/v2.BuildDate=${DATE}' -X 'github.com/qiniu/version/v2.GitTag=${GITTAG}' -X 'github.com/qiniu/version/v2.BuildComments=${BUILDCOMMENT}' -X 'github.com/qiniu/version/v2.Name=${NAME}'"
 
 all:
-	go install -ldflags ${LDFLAGS} -v ./...
+	go build -ldflags ${LDFLAGS} -v ./main.go
