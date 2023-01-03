@@ -62,11 +62,11 @@ func Version() {
 	}
 
 	if BuildDate != unknownProperty {
-		xprintf("Built date", BuildDate)
+		xprintf("Build date", BuildDate)
 	}
 
 	if BuildComments != unknownProperty {
-		xprintf("Built comments", BuildComments)
+		xprintf("Build comments", BuildComments)
 	}
 
 	xprintf("OS/Arch", Platform)
