@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"runtime"
 	"runtime/debug"
-	"sync"
 )
 
 const (
@@ -38,15 +37,14 @@ var (
 	Name = unknownProperty
 )
 
-var once sync.Once
+// This is for preventing access to the unpopulated properties.
+func init() {
+	collectFromBuildInfo()
+	collectFromRuntime()
+}
 
 // Version prints the information of versioning
 func Version() {
-	once.Do(func() {
-		collectFromBuildInfo()
-		collectFromRuntime()
-	})
-
 	format := "%s:\t%s\n"
 	if Name != unknownProperty {
 		xprintf(format, "Name", Name)
