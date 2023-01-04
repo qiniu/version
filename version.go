@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	unknownProperty = "N/A"
+	unknownProperty = ""
 )
 
 // Compiler is a convenient alias for runtime.Compiler.
@@ -30,17 +30,17 @@ var (
 	GitCommitDate = unknownProperty
 	// GitTreeState becomes "dirty" if the source tree had local modifications
 	// at build-time.
-	// It stays "N/A" otherwise and will not be shown in Print if this is the
+	// It stays empty otherwise and will not be shown in Print if this is the
 	// case.
 	GitTreeState = unknownProperty
 	// GitTag is meant to be injected with the tag name associated with
 	// GitCommit, by means of `go -ldflags` at build-time.
-	// It stays "N/A" otherwise and will not be shown in Print if this is the
+	// It stays empty otherwise and will not be shown in Print if this is the
 	// case.
 	GitTag = unknownProperty
 	// BuildDate is meant to be injected with a string denoting the build time
 	// of the binary, by means of `go -ldflags` at build-time.
-	// It stays "N/A" otherwise and will not be shown in Print if this is the
+	// It stays empty otherwise and will not be shown in Print if this is the
 	// case.
 	BuildDate = unknownProperty
 	// Platform is a string in the form of "GOOS/GOARCH", e.g. "linux/amd64".
@@ -50,7 +50,7 @@ var (
 	BuildComments = unknownProperty
 	// Name is meant to be injected with the binary's intended name, by means
 	// of `go -ldflags` at build-time.
-	// It stays "N/A" otherwise and will not be shown in Print if this is the
+	// It stays empty otherwise and will not be shown in Print if this is the
 	// case.
 	Name = unknownProperty
 )
