@@ -2,88 +2,96 @@ package version
 
 import (
 	"fmt"
-	"os"
 	"runtime"
 	"runtime/debug"
-	"sync"
 )
 
 const (
-	unknownProperty = "N/A"
+	unknownProperty = ""
 )
 
-// Information of versioning
+// Compiler is a convenient alias for runtime.Compiler.
+const Compiler = runtime.Compiler
+
+// Version information
 var (
-	// GoVersion is the version of the Go toolchain that built the binary(for example, "go1.19.2").
-	// and will be filled via runtime.Version() automatically if not specified.
+	// GoVersion is the version of the Go toolchain used to build the binary
+	// (e.g. "go1.19.2").
+	// It defaults to value of runtime.Version() if not explicitly overridden.
 	GoVersion = unknownProperty
-	// GitCommit shows the revision identifier for the current commit or checkout.
-	// and will be filled via debug.BuildInfo.Settings automatically if not specified.
+	// GitCommit is the commit hash of the Git repository's HEAD at
+	// build-time.
+	// It defaults to the value as collected by the runtime/debug package if
+	// not explicitly overridden.
 	GitCommit = unknownProperty
-	// GitCommitDate shows the time associated with GitCommit, in RFC3339 format
-	// and will be filled via debug.BuildInfo.Settings automatically if not specified.
+	// GitCommitDate is GitCommit's commit date in RFC3339 format.
+	// It defaults to the value as collected by the runtime/debug package if
+	// not explicitly overridden.
 	GitCommitDate = unknownProperty
-	// GitTreeState shows "dirty" indicating the source tree had local modifications, otherwise it is invisible.
+	// GitTreeState becomes "dirty" if the source tree had local modifications
+	// at build-time.
+	// It stays empty otherwise and will not be shown in Print if this is the
+	// case.
 	GitTreeState = unknownProperty
-	// GitTag shows latest tag if injected by go -ldflags, otherwise it is invisible.
+	// GitTag is meant to be injected with the tag name associated with
+	// GitCommit, by means of `go -ldflags` at build-time.
+	// It stays empty otherwise and will not be shown in Print if this is the
+	// case.
 	GitTag = unknownProperty
-	// BuildDate shows the built time for the associated binary if injected by go -ldflags. otherwise it is invisible.
+	// BuildDate is meant to be injected with a string denoting the build time
+	// of the binary, by means of `go -ldflags` at build-time.
+	// It stays empty otherwise and will not be shown in Print if this is the
+	// case.
 	BuildDate = unknownProperty
-	// Platform composes with GOARCH and GOOS automatically.
+	// Platform is a string in the form of "GOOS/GOARCH", e.g. "linux/amd64".
 	Platform = unknownProperty
-	// Compiler shows the toolchain flag used (typically "gc")
-	Compiler = unknownProperty
-	// BuildComments provides extra information if needed.
+	// BuildComments can be used to associate arbitrary extra information with
+	// the binary, by means of injection via `go -ldflags` at build-time.
 	BuildComments = unknownProperty
-	// Name shows the name of your binary if provided, otherwise it is invisible.
+	// Name is meant to be injected with the binary's intended name, by means
+	// of `go -ldflags` at build-time.
+	// It stays empty otherwise and will not be shown in Print if this is the
+	// case.
 	Name = unknownProperty
 )
 
+// This is for preventing access to the unpopulated properties.
 func init() {
-	// usages: <command> version (or --version / -version)
-	if len(os.Args) > 1 && (os.Args[1] == "version" || os.Args[1] == "--version" || os.Args[1] == "-version") {
-		Version()
-		os.Exit(0)
-	}
-
-	// TODO: expose version information via exporter as needed
+	collectFromBuildInfo()
+	collectFromRuntime()
 }
 
-var once sync.Once
-
-// Version prints the information of versioning
-func Version() {
-	once.Do(func() {
-		collectFromBuildInfo()
-		collectFromRuntime()
-	})
-
-	format := "%s:\t%s\n"
-	if Name != unknownProperty {
-		xprintf(format, "Name", Name)
+// Print prints out the collected version information.
+func Print() {
+	xprintf := func(k string, v string) {
+		fmt.Printf("%s:\t%s\n", k, v)
 	}
 
-	xprintf(format, "Go version", GoVersion)
-	xprintf(format, "Git commit", GitCommit)
-	xprintf(format, "Commit date", GitCommitDate)
+	if Name != unknownProperty {
+		xprintf("Name", Name)
+	}
+
+	xprintf("Go version", GoVersion)
+	xprintf("Git commit", GitCommit)
+	xprintf("Commit date", GitCommitDate)
 
 	if GitTreeState != unknownProperty {
-		xprintf(format, "Git state", GitTreeState)
+		xprintf("Git state", GitTreeState)
 	}
 
 	if BuildDate != unknownProperty {
-		xprintf(format, "Built date", BuildDate)
+		xprintf("Build date", BuildDate)
 	}
 
 	if BuildComments != unknownProperty {
-		xprintf(format, "Built comments", BuildComments)
+		xprintf("Build comments", BuildComments)
 	}
 
-	xprintf(format, "OS/Arch", Platform)
-	xprintf(format, "Compiler", Compiler)
+	xprintf("OS/Arch", Platform)
+	xprintf("Compiler", Compiler)
 
 	if GitTag != unknownProperty {
-		xprintf(format, "Git tag", GitTag)
+		xprintf("Git tag", GitTag)
 	}
 }
 
@@ -124,13 +132,4 @@ func collectFromRuntime() {
 	if Platform == unknownProperty {
 		Platform = fmt.Sprintf("%s/%s", runtime.GOOS, runtime.GOARCH)
 	}
-
-	if Compiler == unknownProperty {
-		Compiler = runtime.Compiler
-	}
-}
-
-// xprintf prints a message to standard output.
-func xprintf(format string, args ...interface{}) {
-	fmt.Printf(format, args...)
 }
