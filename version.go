@@ -73,7 +73,10 @@ func Print() {
 
 	xprintf("Go version", GoVersion)
 	xprintf("Git commit", GitCommit)
-	xprintf("Commit date", GitCommitDate)
+
+	if GitCommitDate !=unknownProperty{
+		xprintf("Commit date", GitCommitDate)
+	}
 
 	if GitTreeState != unknownProperty {
 		xprintf("Git state", GitTreeState)
